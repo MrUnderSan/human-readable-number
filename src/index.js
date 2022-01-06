@@ -1,124 +1,118 @@
 module.exports = function toReadable (number) {
-    
+
+    let string = '';
+
     function zeroToNine (n) {
         switch(n) {
             case 1:
-                console.log('one');
-                break;
+                return 'one';
             case 2:
-                console.log('two');
-                break;
+                return 'two';
             case 3:
-                console.log('three');
-                break;
+                return 'three';
             case 4:
-                console.log('four');
-                break;
+                return 'four';
             case 5:
-                console.log('five');
-                break;
+                return 'five';
             case 6:
-                console.log('six');
-                break;
+                return 'six';
             case 7:
-                console.log('seven');
-                break;
+                return 'seven';
             case 8:
-                console.log('eight');
-                break;
+                return 'eight';
             case 9:
-                console.log('nine');
-                break;
+                return 'nine';
         }
     }
 
     function tenToNineteen (n) {
         switch(n) {
             case 10:
-                console.log('ten');
-                break;
+                return 'ten';
             case 11:
-                console.log('eleven');
-                break;
+                return 'eleven';
             case 12:
-                console.log('twelve');
-                break;
+                return 'twelve';
             case 13:
-                console.log('thirteen');
-                break;
+                return 'thirteen';
             case 14:
-                console.log('fourteen');
-                break;
+                return 'fourteen';
             case 15:
-                console.log('fifteen');
-                break;
+                return 'fifteen';
             case 16:
-                console.log('sixteen');
-                break;
+                return 'sixteen';
             case 17:
-                console.log('seventeen');
-                break;
+                return 'seventeen';
             case 18:
-                console.log('eightteen');
-                break;
+                return 'eighteen';
             case 19:
-                console.log('nineteen');
-                break;
+                return 'nineteen';
         }
     }
 
     function twentyToNinetyNine (n) {
         switch(n) {
             case 2:
-                console.log('twenty');
-                break;
+                return 'twenty';
             case 3:
-                console.log('thirty');
-                break;
+                return 'thirty';
             case 4:
-                console.log('forty');
-                break;
+                return 'forty';
             case 5:
-                console.log('fifty');
-                break;
+                return 'fifty';
             case 6:
-                console.log('sixty');
-                break;
+                return 'sixty';
             case 7:
-                console.log('seventy');
-                break;
+                return 'seventy';
             case 8:
-                console.log('eighty');
-                break;
+                return 'eighty';
             case 9:
-                console.log('ninety');
-                break;
+                return 'ninety';
         }
     }
 
     if (number === 0) {
-        console.log('zero');
+        return string += 'zero';
+
     } if (number > 0 && number < 10) {
-        zeroToNine(num);
+        return string += zeroToNine(number);
+
     } if (number > 9 && number < 20) {
-        tenToNineteen(number);
+        return string += tenToNineteen(number);
+
     } if (number > 19 && number < 100) {
-        const tens = Math.floor(number / 10);
-        twentyToNinetyNine(tens);
-        zeroToNine(number % 10);
+        const tens = Math.floor(number / 10),
+              ones = number % 10;
+        if (ones === 0) {
+            return string += twentyToNinetyNine(tens);
+        } else {
+            return string += twentyToNinetyNine(tens) + ' ' + zeroToNine(number % 10);
+        }
+
     } if (number > 99 && number < 1000) {
         const hundreds= Math.floor(number / 100);
-        zeroToNine(hundreds);
-        console.log('hundred');
         modulo = number % 100;
-        if (modulo > 0 && modulo < 10) {
-            zeroToNine(modulo);
+
+        if (modulo === 0) {
+            return string += zeroToNine(hundreds) + ' ' + 'hundred';
+
+        } if (modulo > 0 && modulo < 10) {
+            return string += zeroToNine(hundreds) + ' ' + 'hundred' + ' ' + zeroToNine(modulo);
+
         } if (modulo > 9 && modulo < 20) {
-            tenToNineteen(modulo);
+            return string += zeroToNine(hundreds) + ' ' + 'hundred' + ' ' + tenToNineteen(modulo);
+
+            
         } if (modulo > 19 && modulo < 100) {
-            const tens = Math.floor(modulo / 10);
-            twentyToNinetyNine(tens);
-            zeroToNine(modulo % 10);
+
+            const hundredsTens = Math.floor(modulo / 10),
+                  hundredsOnes = modulo % 10;
+
+            if (hundredsOnes === 0) {
+                return string += zeroToNine(hundreds) + ' ' + 'hundred' + ' ' + twentyToNinetyNine(hundredsTens);
+            } else {
+                return string += zeroToNine(hundreds) + ' ' + 'hundred' + ' ' + twentyToNinetyNine(hundredsTens) + ' ' + zeroToNine(hundredsOnes);
+            }
         }
     }
 
